@@ -1,0 +1,54 @@
+package com.hibernate;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	
+//    	Student s1 = new Student();
+//    	s1.setId(103);
+//    	s1.setName("Harsh");
+//    	s1.setAge(18);
+//    	
+    	
+    	Alien a1 = new Alien();
+    	a1.setAlien_id(102);
+    	a1.setAlien_name("Navin");
+    	a1.setTech("Java");
+    	
+    	Configuration config = new Configuration();
+    	config.addAnnotatedClass(com.hibernate.Alien.class);
+    	config.configure("hibernate.cfg.xml");
+    	
+    	SessionFactory sessionFactory = config.buildSessionFactory();
+    	Session session = sessionFactory.openSession();
+    	Transaction transaction = session.beginTransaction();
+    	//session.save(s1);
+    	
+    	session.save(a1);
+//    	int id = 108;
+//    	Student student = session.get(Student.class, id);
+//    	
+//    	
+//    	if(student == null) {
+//    		System.out.println("Student with Id - "+id+ " doesn't exist");
+//    	}else {
+//    		System.out.println(student);
+//    	}
+    	
+    	
+    	//session.update(s1);
+    	
+    	//Student s103 = session.get(Student.class, 103);
+    	//session.delete(s103);
+    	//session.remove(102);
+    	
+    	transaction.commit();
+    	//System.out.println(s1);
+    }
+}
