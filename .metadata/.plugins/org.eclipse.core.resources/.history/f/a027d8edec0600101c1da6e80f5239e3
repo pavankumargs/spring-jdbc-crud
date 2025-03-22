@@ -1,0 +1,15 @@
+package com.onetoone;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        Configuration configuration = new Configuration();
+    	SessionFactory sessionFactory = null;
+    	Session session = sessionFactory.openSession();
+    }
+}

@@ -1,0 +1,46 @@
+package com.hibernate.OneToOne;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
+public class Alien {
+
+	@Id
+	private int alien_Id;
+	private String name;
+	private String tech;
+	@OneToOne
+	private Laptop laptop;
+
+	public int getAlien_Id() {
+		return alien_Id;
+	}
+
+	public void setAlien_Id(int alien_Id) {
+		this.alien_Id = alien_Id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTech() {
+		return tech;
+	}
+
+	public void setTech(String tech) {
+		this.tech = tech;
+	}
+
+	@Override
+	public String toString() {
+		return "Alien [alien_Id=" + alien_Id + ", name=" + name + ", tech=" + tech + "]";
+	}
+
+}

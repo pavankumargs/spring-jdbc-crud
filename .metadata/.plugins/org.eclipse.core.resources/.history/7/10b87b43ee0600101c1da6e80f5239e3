@@ -1,0 +1,31 @@
+package com.onetoone;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.onetoone.entity.Book;
+import com.onetoone.entity.Student;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        Configuration configuration = new Configuration();
+        
+        configuration.configure("hibernate.cfg.xml");
+        configuration.addAnnotatedClass(com.onetoone.entity.Book.class);
+        configuration.addAnnotatedClass(com.onetoone.entity.Student.class);
+        
+    	SessionFactory sessionFactory = configuration.buildSessionFactory();
+    	Session session = sessionFactory.openSession();
+    	Transaction transaction = session.beginTransaction();
+    	
+    	Student s1 = new Student(101,"PavanKumar","pavan@gmail.com");
+    	Book b1 = new Book(1,"CoreJava","Author-X");
+    	
+    	transaction.commit();
+    	session.close();
+    }
+}

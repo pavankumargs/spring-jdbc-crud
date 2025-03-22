@@ -1,0 +1,5 @@
+package com.hibernate.OneToOne;
+
+public class App {
+
+}

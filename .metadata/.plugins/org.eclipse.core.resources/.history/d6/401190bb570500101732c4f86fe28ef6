@@ -1,0 +1,8 @@
+package com.hibernate;
+
+public class Alien {
+	
+	private int alien_id;
+	private String alien_name;
+	private String tech;
+}

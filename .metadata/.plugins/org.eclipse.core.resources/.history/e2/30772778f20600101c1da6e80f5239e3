@@ -1,0 +1,53 @@
+package com.onetoone;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.onetoone.entity.Book;
+import com.onetoone.entity.Student;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+        Configuration configuration = new Configuration();
+        
+        configuration.configure("hibernate.cfg.xml");
+        configuration.addAnnotatedClass(com.onetoone.entity.Book.class);
+        configuration.addAnnotatedClass(com.onetoone.entity.Student.class);
+        
+    	SessionFactory sessionFactory = configuration.buildSessionFactory();
+    	Session session = sessionFactory.openSession();
+    	Transaction transaction = session.beginTransaction();
+    	
+    	//Saving Student and Book Objects
+    	Student s1 = new Student(101,"PavanKumar","pavan@gmail.com");
+    	Book b1 = new Book(1,"CoreJava","Author-X");
+    	b1.setStudent(s1);
+//    	session.save(s1);
+//    	session.save(b1);
+    	
+    	
+    	Student s2 = new Student(102,"NavinReddy","Navin@gmail.com");
+    	Book b2 = new Book(2,"Python","Author-Y");
+    	b2.setStudent(s2);
+//    	session.save(s2);
+//    	session.save(b2);
+    	
+    	
+    	//Fetching Student by id
+    	Student student = session.get(Student.class, 102L);
+    	System.out.println(student);
+    	
+    	//Fetching book by Id
+    	Book book = session.get(Book.class, 1L);
+    	System.out.println(book);
+    	
+    	session.remove(2L);
+    	
+    	transaction.commit();
+    	session.close();
+    }
+}

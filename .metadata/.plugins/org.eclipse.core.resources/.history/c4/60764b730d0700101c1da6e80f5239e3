@@ -1,0 +1,13 @@
+package com.onetoone;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+public class HibernateUtil {
+	
+	private static SessionFactory sessionFactory;
+	
+	public static Session getSession() {
+		return sessionFactory.openSession();
+	}
+}

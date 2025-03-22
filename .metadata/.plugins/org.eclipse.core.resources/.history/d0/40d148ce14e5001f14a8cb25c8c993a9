@@ -1,0 +1,37 @@
+package com.telusko;
+
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	Student s1 = new Student();
+    	s1.setId(102);
+    	s1.setName("Harish");
+    	s1.setMarks(77);
+    	
+    	Configuration config = new Configuration();
+    	config.addAnnotatedClass(com.telusko.Student.class);
+    	config.configure();
+    	SessionFactory sessionFactory = config.buildSessionFactory();
+    	Session session = sessionFactory.openSession();
+    	
+    	org.hibernate.Transaction transaction = session.beginTransaction();
+    	
+    	session.save(s1);
+    	//session.persist(s1); // we can use this method also to save the object 
+    	
+    	Student student = session.get(Student.class, 102); //fetching the object
+    	System.out.println(student);
+    	
+    	session.delete(student);
+    	transaction.commit();
+    	
+    	session.close();
+    	//System.out.println(s1);
+    }
+}
