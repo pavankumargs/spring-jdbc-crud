@@ -13,7 +13,10 @@ public class Employee {
 		this.exp = exp;
 		this.department = department;
 	}
-
+	
+	public Employee() {
+		
+	}
 	public String getId() {
 		return id;
 	}

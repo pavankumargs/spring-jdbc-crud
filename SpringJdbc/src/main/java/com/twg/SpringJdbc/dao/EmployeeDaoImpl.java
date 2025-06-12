@@ -7,51 +7,47 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
 import com.twg.SpringJdbc.dto.Employee;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 
+	private JdbcTemplate jdbcTemplate;
+
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
 	@Override
 	public void insertEmployee(Employee employee) {
-		// TODO Auto-generated method stub
+		String id = employee.getId();
+		String name = employee.getName();
+		int exp = employee.getExp();
+		String department = employee.getDepartment();
 
+		String sql = "insert into employees values(?,?,?,?)";
+
+		jdbcTemplate.update(sql, id, name, exp, department);
 	}
 
 	@Override
 	public List<Employee> findAllEmployees() {
-		String driver = "com.mysql.cj.jdbc.Driver";
-		String url = "jdbc:mysql://localhost:3306/springjdbc";
-		String username = "root";
-		String password = "Root@123$";
-		
-		List<Employee> employees = new ArrayList();
-
-		try {
-			Class.forName(driver);
-			Connection con = DriverManager.getConnection(url, username, password);
-			Statement stmt = con.createStatement();
-			String qry = "select * from employees";
-			ResultSet res = stmt.executeQuery(qry);
-			
-			while(res.next()) {
-				String id = res.getString(1);
-				String name = res.getString(2);
-				int exp = res.getInt(3);
-				
-				Employee emp = new Employee(id, username, exp, name);
-				employees.add(emp);
-			}
-			con.close();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		EmployeeRowMapper rowMapper = new EmployeeRowMapper();
+		List<Employee> employees = jdbcTemplate.query("select * from employees", rowMapper);
 		return employees;
 	}
 
 	@Override
 	public Employee getEmployeeById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		String qry = "select * from employees where id = ?";
+		Employee employee = jdbcTemplate.queryForObject(qry, new EmployeeRowMapper(), id);
+		return employee;
 	}
 
 }

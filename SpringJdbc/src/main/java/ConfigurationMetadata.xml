@@ -14,8 +14,22 @@
 	</bean>
  	
  	<bean id="employeeDao" class="com.twg.SpringJdbc.dao.EmployeeDaoImpl">
- 	
+ 	<property name="jdbcTemplate">
+ 	<ref bean="jdbcTemplate"></ref>
+ 	</property>
  	</bean>
-
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+	<property name="url" value="jdbc:mysql://localhost:3306/springjdbc"></property>
+	<property name="username" value="root"></property>
+	<property name="password" value="Root@123$"></property>
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	<property name="dataSource">
+	<ref bean="dataSource"></ref>
+	</property>
+	</bean>
 
 </beans>
